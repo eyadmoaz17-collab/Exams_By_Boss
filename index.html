@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الامتحان الأسطوري - The Legendary Exam Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- الخلفية مع النجوم المتساقطة -->
+    <div class="starfield" id="starfield"></div>
+    
+    <!-- شاشة الدخول الرئيسية -->
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <!-- الشعار -->
+            <div class="logo-section">
+                <div class="crown-icon">👑</div>
+                <h1 class="main-title">الامتحان الأسطوري</h1>
+                <p class="subtitle">للأساطير فقط</p>
+            </div>
+
+            <!-- نموذج الدخول العادي -->
+            <div class="login-form">
+                <input type="text" id="studentName" placeholder="أدخل اسمك الثلاثي" class="input-field">
+                
+                <!-- زر VIP -->
+                <button id="vipButton" class="vip-button">نسخة Vip</button>
+            </div>
+
+            <!-- زر البدء -->
+            <button id="startBtn" class="start-button">ابدأ الامتحان</button>
+
+            <!-- التوقيع -->
+            <p class="signature">Designed & Coded by The Boss</p>
+        </div>
+    </div>
+
+    <!-- شاشة العداد (VIP Loading) -->
+    <div id="vipLoadingScreen" class="screen">
+        <div class="loading-container">
+            <div class="countdown-circle">
+                <svg class="progress-ring" width="200" height="200">
+                    <circle class="progress-ring__circle" stroke="currentColor" fill="transparent" r="90" cx="100" cy="100" stroke-width="3" stroke-dasharray="565.48" stroke-dashoffset="0"/>
+                </svg>
+                <div class="countdown-number" id="countdownNumber">15</div>
+                <p class="countdown-text">جاري تحميل BOSS MODE</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة دخول Boss VIP -->
+    <div id="bossLoginScreen" class="screen">
+        <div class="boss-login-container">
+            <div class="boss-title">
+                <span class="crown">👑</span>
+                <h2>THE BOSS ACCESS</h2>
+                <p>الوصول حصري للأساطير فقط</p>
+            </div>
+
+            <div class="boss-login-form">
+                <div class="form-group">
+                    <label>اسم المستخدم</label>
+                    <input type="text" id="bossUsername" value="Boss Vip" disabled class="input-field boss-input">
+                </div>
+
+                <div class="form-group">
+                    <label>الرمز السري</label>
+                    <input type="password" id="bossPassword" placeholder="••••" class="input-field boss-input" maxlength="4">
+                </div>
+
+                <button id="bossLoginBtn" class="boss-login-button">دخول</button>
+                <p class="error-message" id="bossErrorMsg"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة الاختبار (Boss Mode) -->
+    <div id="examScreen" class="screen">
+        <!-- الرأس (Header) -->
+        <div class="exam-header">
+            <div class="header-left">
+                <div class="boss-badge">
+                    <span class="crown-small">👑</span>
+                    <span>THE BOSS</span>
+                </div>
+                <div class="exam-counter">
+                    <span id="questionNumber">1</span> / <span id="totalQuestions">0</span>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="owner-badge">
+                    <span>OWNER</span>
+                    <span class="owner-icon">🦁</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- محتوى الاختبار -->
+        <div class="exam-content">
+            <!-- القسم الأيسر (الأسئلة) -->
+            <div class="questions-section">
+                <div id="questionsContainer" class="questions-container">
+                    <!-- الأسئلة تظهر هنا -->
+                </div>
+
+                <!-- أزرار التنقل -->
+                <div class="navigation-buttons">
+                    <button id="prevBtn" class="nav-button prev-button">السابق</button>
+                    <button id="nextBtn" class="nav-button next-button">التالي</button>
+                </div>
+
+                <!-- زر إنهاء الامتحان -->
+                <button id="submitBtn" class="submit-button">إنهاء الامتحان</button>
+            </div>
+
+            <!-- القسم الأيمن (الشريط الجانبي) -->
+            <div class="sidebar">
+                <!-- الشريط التحفيزي -->
+                <div class="motivational-banner">
+                    <div class="banner-text">القمة لا تسع إلا للأساطير</div>
+                </div>
+
+                <!-- الحجر الأحمر -->
+                <div class="red-gem">
+                    <div class="gem-inner">✦</div>
+                </div>
+
+                <!-- حالة الامتحان -->
+                <div class="exam-status">
+                    <h3>حالة الامتحان</h3>
+                    <div class="progress-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" class="progress-background"></circle>
+                            <circle cx="50" cy="50" r="45" class="progress-fill" id="progressFill"></circle>
+                        </svg>
+                        <div class="progress-text" id="progressText">0%</div>
+                    </div>
+                </div>
+
+                <!-- الوقت المتبقي -->
+                <div class="time-remaining">
+                    <h3>الوقت المتبقي</h3>
+                    <div class="timer">
+                        <span id="hours">00</span> : <span id="minutes">59</span> : <span id="seconds">45</span>
+                    </div>
+                </div>
+
+                <!-- أزرار التحكم -->
+                <div class="control-buttons">
+                    <button class="control-btn" id="soundToggle" title="تشغيل/إيقاف الصوت">🔊</button>
+                    <button class="control-btn" id="musicToggle" title="تشغيل/إيقاف الموسيقى">🎵</button>
+                    <button class="control-btn" id="themeToggle" title="تبديل المظهر">☀️</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة النتائج -->
+    <div id="resultsScreen" class="screen">
+        <div class="results-container">
+            <div class="results-header">
+                <h1>النتائج النهائية</h1>
+            </div>
+
+            <div class="results-content">
+                <div class="score-display">
+                    <div class="score-circle">
+                        <span class="score-text" id="finalScore">0</span>
+                        <span class="score-total">/ <span id="totalScore">0</span></span>
+                    </div>
+                </div>
+
+                <div class="results-details">
+                    <div class="result-item">
+                        <span class="result-label">النسبة المئوية</span>
+                        <span class="result-value" id="percentage">0%</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">عدد الإجابات الصحيحة</span>
+                        <span class="result-value" id="correctCount">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">عدد الإجابات الخاطئة</span>
+                        <span class="result-value" id="wrongCount">0</span>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button id="reviewBtn" class="results-button review-button">مراجعة الإجابات</button>
+                    <button id="retakeBtn" class="results-button retake-button">إعادة الامتحان</button>
+                    <button id="exitBtn" class="results-button exit-button">الخروج</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة المراجعة -->
+    <div id="reviewScreen" class="screen">
+        <div class="review-container">
+            <h1>مراجعة الإجابات</h1>
+            <div id="reviewContent" class="review-content">
+                <!-- المراجعة تظهر هنا -->
+            </div>
+            <button id="backToResults" class="back-button">العودة للنتائج</button>
+        </div>
+    </div>
+
+    <!-- عنصر الصوت المخفي -->
+    <audio id="backgroundMusic" loop preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
